@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Restaurant</string>
+    <string name="failed_fetch">something wrong,please try to pull refresh</string>
+</resources>

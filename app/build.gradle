@@ -1,0 +1,57 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+}
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdk config_android.compileSdk
+
+    defaultConfig {
+        applicationId config_android.applicationId
+        minSdk config_android.minSdk
+        targetSdk config_android.targetSdk
+        versionCode config_android.versionCode
+        versionName config_android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility config_android.javaVersion
+        targetCompatibility config_android.javaVersion
+    }
+    kotlinOptions {
+        jvmTarget = config_android.javaVersion
+    }
+}
+
+dependencies {
+
+    implementation dependencies_lib.ktx
+    implementation dependencies_lib.appcompat
+    implementation dependencies_lib.material
+    implementation dependencies_lib.constraint_layout
+    implementation dependencies_lib.swipe_refresh
+    implementation dependencies_lib.fresco
+    implementation dependencies_lib.fresco_okhttp
+    implementation dependencies_lib.retrofit2
+    implementation dependencies_lib.retrofit_gson
+    implementation dependencies_lib.lifecycle_extensions
+    implementation dependencies_lib.lifecycle_compiler
+    implementation dependencies_lib.lifecycle_runtime
+    implementation 'androidx.fragment:fragment-ktx:1.3.6'
+
+    testImplementation dependencies_lib.junit
+    testImplementation dependencies_lib.core_test
+    androidTestImplementation dependencies_lib.junit_android
+    androidTestImplementation dependencies_lib.espresso
+    androidTestImplementation dependencies_lib.rules
+}
