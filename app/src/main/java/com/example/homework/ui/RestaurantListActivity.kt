@@ -64,7 +64,13 @@ class RestaurantListActivity : BaseActivity(), IRestaurantBridge {
                 adapter.setDatas(result)
             }
         })
-        viewModel.refresh.observe(this, Observer { srl_refresh.post { srl_refresh.isRefreshing = it } })
+        viewModel.refresh.observe(this, Observer { it ->
+            srl_refresh.post {
+                // Causes the Runnable to be added to the message queue.
+                // The runnable will be run on the user interface thread.
+                srl_refresh.isRefreshing = it
+            }
+        })
     }
 
     override fun getLayoutResource(): Int {

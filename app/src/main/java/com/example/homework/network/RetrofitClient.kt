@@ -1,5 +1,6 @@
 package com.example.homework.network
 
+import com.example.homework.api.RestaurantService
 import com.example.homework.constance.ApiConst
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -7,7 +8,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
-    private var sRetrofitInstance: Retrofit
+    // Retrofit
+    var yelpService: RestaurantService
+
+    // OkHttpClient
     val client by lazy {
         OkHttpClient().newBuilder()
             .connectTimeout(30, TimeUnit.SECONDS)
@@ -17,15 +21,10 @@ object RetrofitClient {
     }
 
     init {
-        sRetrofitInstance = Retrofit.Builder()
+        yelpService = Retrofit.Builder()
             .client(client)
             .baseUrl(ApiConst.HOST)
-            .addConverterFactory(GsonConverterFactory.create()).build()
+            .addConverterFactory(GsonConverterFactory.create()).build() // for gson
+            .create(RestaurantService::class.java);
     }
-
-
-    fun <T> get(clazz: Class<T>): T {
-        return sRetrofitInstance.create(clazz)
-    }
-
 }

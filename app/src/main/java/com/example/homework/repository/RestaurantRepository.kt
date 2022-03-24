@@ -24,7 +24,7 @@ object RestaurantRepository {
 
     fun fetchRestaurants(term: String?, location: String?): Flow<Callback> {
         return flow {
-            val response = RetrofitClient.get(RestaurantService::class.java).fetchRestaurant(term, location)
+            val response = RetrofitClient.yelpService.fetchRestaurant(term, location)
             val data = response.body()
             val restaurants = data?.businesses
             if (response.isSuccessful && !(restaurants.isNullOrEmpty())) {
